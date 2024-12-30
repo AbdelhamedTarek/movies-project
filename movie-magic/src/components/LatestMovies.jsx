@@ -1,11 +1,7 @@
 import SlickSlider from "./SlickSlider";
 
 const LatestMovies = () => {
-  return (
-    <div>
-      <SlickSlider />
-    </div>
-  );
+  return <SlickSlider />;
 };
 
 export default LatestMovies;
