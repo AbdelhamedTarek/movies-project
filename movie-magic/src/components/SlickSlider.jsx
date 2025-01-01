@@ -39,13 +39,6 @@ const SlickSlider = () => {
     getLatestmovies();
   }, [setSlides]);
 
-  // const slides = [
-  //   "https://via.placeholder.com/600x300/FF5733",
-  //   "https://via.placeholder.com/600x300/33FF57",
-  //   "https://via.placeholder.com/600x300/3357FF",
-  //   "https://via.placeholder.com/600x300/FFFF33",
-  // ];
-
   return (
     <div className="slider-container">
       <Slider {...settings}>
