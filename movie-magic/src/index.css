@@ -10,6 +10,11 @@
   --light-color: #fff;
 }
 
+input::placeholder {
+  color: white; /* Change to your desired color */
+  font-style: italic; /* Optional styling */
+}
+
 .logo {
   width: 70px;
   height: 70px;
@@ -24,6 +29,14 @@
   padding: 5px 10px;
   border-radius: 5px;
   margin: 5px;
+  cursor: pointer;
+}
+.btn-visit {
+  background-color: #3689e3;
+  color: black;
+  padding: 8px 14px;
+  border-radius: 10px;
+  margin: 10px;
   cursor: pointer;
 }
 
