@@ -12,7 +12,7 @@ const MovieCard = ({ movie, onCardClick }) => {
     <div
       onClick={handleViewMovie}
       className="flex flex-col items-center bg-white border border-gray-300 rounded-lg shadow-lg p-4 hover:scale-105 transition-transform duration-300 ease-in-out"
-      style={{ width: "250px", height: "400px" }}
+      style={{ width: "250px", height: "400px" }} // Explicit size for each card
     >
       <img
         className="w-full h-3/4 object-cover rounded-t-lg mb-2"

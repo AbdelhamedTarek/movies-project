@@ -4,8 +4,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SlickSlider.css";
 import MovieCard from "./MovieCard";
+import Modal from "./Modal";
 
-const SlickSlider = ({ topRatedMovies }) => {
+const SlickSlider = ({
+  topRatedMovies,
+  onClose,
+  selectedMovie,
+  onCardClick,
+  userRatings,
+  setUserRatings,
+}) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -44,15 +52,27 @@ const SlickSlider = ({ topRatedMovies }) => {
   };
 
   return (
-    <div className="slider-container px-6 py-10 bg-transparent]">
-      <Slider {...settings}>
-        {topRatedMovies.map((topRatedMovie, index) => (
-          <div className="p-10" key={index}>
-            <MovieCard movie={topRatedMovie} />
-          </div>
-        ))}
-      </Slider>
-    </div>
+    <>
+      <div className="slider-container px-6 py-10 bg-transparent]">
+        <Slider {...settings}>
+          {topRatedMovies.map((topRatedMovie, index) => (
+            <div className="p-10" key={index}>
+              <MovieCard movie={topRatedMovie} onCardClick={onCardClick} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+      <div>
+        {selectedMovie ? (
+          <Modal
+            onClose={onClose}
+            selectedMovie={selectedMovie}
+            userRatings={userRatings}
+            setUserRatings={setUserRatings}
+          />
+        ) : null}
+      </div>
+    </>
   );
 };
 

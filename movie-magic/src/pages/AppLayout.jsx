@@ -3,20 +3,28 @@ import { useEffect, useState } from "react";
 import LatestMovies from "../components/LatestMovies";
 import Movies from "../components/Movies";
 import axios from "axios";
-import { useLocation } from "react-router";
 import Navbar from "../components/Navbar";
 import Spinner from "../components/Spinner";
-import Modal from "../components/Modal";
 
-const AppLayout = () => {
+const AppLayout = ({
+  selectedMovie,
+  setSelectedMovie,
+  userRatings,
+  setUserRatings,
+}) => {
   const [query, setQuery] = useState("");
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const location = useLocation();
 
-  const showNavbar = !location.pathname.startsWith("/movie/");
+  const handleCardClick = (movie) => {
+    setSelectedMovie(movie); // Set the selected movie details
+  };
+
+  const handleCloseModal = () => {
+    setSelectedMovie(null); // Close the modal
+  };
 
   useEffect(() => {
     const getLatestmovies = async () => {
@@ -69,9 +77,7 @@ const AppLayout = () => {
 
   return (
     <>
-      {showNavbar && (
-        <Navbar query={query} setQuery={setQuery} setError={setError} />
-      )}
+      <Navbar query={query} setQuery={setQuery} setError={setError} />
       <div className="relative h-full">
         <div
           className="absolute inset-0 bg-[url('img/hero-bg.jpg')] bg-cover bg-center bg-no-repeat"
@@ -91,19 +97,32 @@ const AppLayout = () => {
               <h1 className="text-[#f9f9f9] text-3xl text-center mt-3 mb-3 p-4">
                 Top Rated Movies
               </h1>
-              <LatestMovies topRatedMovies={topRatedMovies} />
+              <LatestMovies
+                topRatedMovies={topRatedMovies}
+                selectedMovie={selectedMovie}
+                onClose={handleCloseModal}
+                onCardClick={handleCardClick}
+                userRatings={userRatings}
+                setUserRatings={setUserRatings}
+              />
             </>
           ) : (
             <>
               <h1 className="text-[#f9f9f9] text-3xl text-center mt-3 mb-3 p-4">
                 Search Results
               </h1>
-              <Movies searchResults={searchResults} />
+              <Movies
+                searchResults={searchResults}
+                selectedMovie={selectedMovie}
+                onClose={handleCloseModal}
+                onCardClick={handleCardClick}
+                userRatings={userRatings}
+                setUserRatings={setUserRatings}
+              />
             </>
           )}
         </div>
       </div>
-      {/* <Modal /> */}
     </>
   );
 };
