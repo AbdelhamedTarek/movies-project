@@ -1,9 +1,54 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./MovieDetails.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MovieDetails = () => {
+  const [movie, setMovie] = useState({});
+  const [crew, setCrew] = useState({});
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38
+`
+      );
+      const data = await res.data;
+      console.log(data);
+      setMovie(data);
+    };
+    fetchMovieDetails();
+  }, [id]);
+  useEffect(() => {
+    const fetchMovieCrew = async () => {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38
+`
+      );
+      const data = await res.data;
+      console.log(data);
+      setCrew(data);
+    };
+    fetchMovieCrew();
+  }, [id]);
+
+  const releaseYear = new Date(movie.release_date).getFullYear();
+
   return (
-    <section className="bg-[#3689e3] p-6">
+    <section
+      className="relative p-6 min-h-screen"
+      style={{
+        backgroundImage: movie.backdrop_path
+          ? `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`
+          : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: movie.backdrop_path ? "rgba(0, 0, 0, 0.2)" : "#333", // Darker fallback color
+        color: "#fff",
+      }}
+    >
+      <div className="absolute inset-0 bg-black opacity-50 -z-10"></div>
       <div>
         <Link className="btn" to="/">
           Back To Movies
@@ -11,54 +56,61 @@ const MovieDetails = () => {
       </div>
 
       <div className="container p-6">
-        <div className="details-top">
+        <div className="flex flex-col md:flex-row lg:flex-row justify-between gap-10 items-center">
           <div>
-            <img src="images/no-image.jpg" alt="Movie Title" />
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt="Movie Title"
+            />
           </div>
           <div>
-            <h2 className="text-center">Movie Title</h2>
+            <h2 className="text-center">{movie.original_title}</h2>
             <p>
-              <i className="fas fa-star text-yellow-400"></i> 8 / 10
+              <i className="fas fa-star text-yellow-400"></i>{" "}
+              {movie.vote_average} / 10
             </p>
-            <p className="text-slate-700">Release Date: XX/XX/XXXX</p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-              atque molestiae error debitis provident dolore hic odit, impedit
-              sint, voluptatum consectetur assumenda expedita perferendis
-              obcaecati veritatis voluptatibus. Voluptatum repellat suscipit,
-              quae molestiae cupiditate modi libero dolorem commodi obcaecati!
-              Ratione quia corporis recusandae delectus perspiciatis consequatur
-              ipsam. Cumque omnis ad recusandae.
-            </p>
+            <p className="text-slate-700">Release Year: {releaseYear}</p>
+            <p>{movie.Plot}</p>
             <h5 className="text-slate-700">Genres</h5>
             <ul className="list-group mb-7">
-              <li>Genre 1</li>
-              <li>Genre 2</li>
-              <li>Genre 3</li>
+              {movie.genres &&
+                movie.genres.map((genre, i) => <li key={i}>{genre.name}</li>)}
             </ul>
-            <Link to="https://google.com" target="_blank" className="btn">
-              Visit Movie Homepage
-            </Link>
+            {movie.homepage === "" ? null : (
+              <Link to={movie.homepage} target="_blank" className="btn">
+                Visit Movie Homepage
+              </Link>
+            )}
           </div>
         </div>
         <div className="details-bottom">
-          <h2>Movie Info</h2>
+          <h2>{movie.original_title} Info</h2>
           <ul>
             <li>
-              <span className="text-slate-700">Budget:</span> $1,000,000
+              <span className="text-slate-700">Budget : </span> ${movie.budget}
             </li>
             <li>
-              <span className="text-slate-700">Revenue:</span> $2,000,000
+              <span className="text-slate-700">Actors : </span>
+              {crew.cast &&
+                crew.cast
+                  .slice(0, 3)
+                  .map((actor) => actor.name)
+                  .join(", ")}
             </li>
             <li>
-              <span className="text-slate-700">Runtime:</span> 90 minutes
+              <span className="text-slate-700">Director: </span>
+              {crew.crew &&
+                crew.crew.find((person) => person.job === "Director").name}
             </li>
             <li>
-              <span className="text-slate-700">Status:</span> Released
+              <span className="text-slate-700">Runtime:</span> {movie.runtime}{" "}
+              mins
+            </li>
+            <li>
+              <span className="text-slate-700">Status:</span>{" "}
+              {releaseYear < 2025 ? "Released" : "Coming Soon"}
             </li>
           </ul>
-          <h4>Production Companies</h4>
-          <div className="list-group">Company 1, Company 2, Company 3</div>
         </div>
       </div>
     </section>

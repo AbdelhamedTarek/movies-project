@@ -20,7 +20,7 @@ const NavbarLinks = () => {
       </li>
       <li>
         <Link
-          to="/rated-movies"
+          to="/top-rated"
           className={`${
             window.location.pathname === "/rated-movies" ? "active" : ""
           } text-[#3689e3] `}
@@ -33,7 +33,7 @@ const NavbarLinks = () => {
       </li>
       <li>
         <Link
-          to="/watched-movies"
+          to="/watched"
           className={`${
             window.location.pathname === "/watched-movies" ? "active" : ""
           } text-[#3689e3]`}

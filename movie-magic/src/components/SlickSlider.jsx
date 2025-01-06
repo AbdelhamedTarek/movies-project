@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
 import Slider from "react-slick";
-import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SlickSlider.css";
+import MovieCard from "./MovieCard";
 
-const SlickSlider = () => {
-  const [slides, setSlides] = useState([]);
+const SlickSlider = ({ topRatedMovies }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -18,7 +17,24 @@ const SlickSlider = () => {
     cssEase: "linear",
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -27,24 +43,12 @@ const SlickSlider = () => {
     ],
   };
 
-  useEffect(() => {
-    const getLatestmovies = async () => {
-      const res = await axios.get(
-        `https://www.omdbapi.com/?apikey=4075d940&s=new&type=movie&y=2024`
-      );
-      const data = await res.data.Search;
-      setSlides(data);
-    };
-
-    getLatestmovies();
-  }, [setSlides]);
-
   return (
-    <div className="slider-container">
+    <div className="slider-container px-6 py-10 bg-transparent]">
       <Slider {...settings}>
-        {slides.map((slide, index) => (
-          <div key={index} className="slick-slide">
-            <img src={slide.Poster} alt={`Slide ${index + 1}`} />
+        {topRatedMovies.map((topRatedMovie, index) => (
+          <div className="p-10" key={index}>
+            <MovieCard movie={topRatedMovie} />
           </div>
         ))}
       </Slider>
@@ -53,3 +57,12 @@ const SlickSlider = () => {
 };
 
 export default SlickSlider;
+
+{
+  /* <div key={index} className="slick-slide">
+<img
+  src={`https://image.tmdb.org/t/p/w500${topRatedMovie.poster_path}`}
+  alt={`Slide ${index + 1}`}
+/>
+</div> */
+}
