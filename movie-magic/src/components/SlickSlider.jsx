@@ -13,6 +13,8 @@ const SlickSlider = ({
   onCardClick,
   userRatings,
   setUserRatings,
+  setFavoriteMovies,
+  favoriteMovies,
 }) => {
   const settings = {
     dots: false,
@@ -69,6 +71,8 @@ const SlickSlider = ({
             selectedMovie={selectedMovie}
             userRatings={userRatings}
             setUserRatings={setUserRatings}
+            setFavoriteMovies={setFavoriteMovies}
+            favoriteMovies={favoriteMovies}
           />
         ) : null}
       </div>

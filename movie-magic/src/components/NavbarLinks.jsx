@@ -33,7 +33,7 @@ const NavbarLinks = () => {
       </li>
       <li>
         <Link
-          to="/watched"
+          to="/favorite"
           className={`${
             window.location.pathname === "/watched-movies" ? "active" : ""
           } text-[#3689e3]`}
@@ -41,7 +41,7 @@ const NavbarLinks = () => {
           <span>
             <FontAwesomeIcon icon={faEye} className="mr-2" />
           </span>
-          Watched Movies
+          Favorite Movies
         </Link>
       </li>
     </ul>

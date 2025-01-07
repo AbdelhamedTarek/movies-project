@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import LatestMovies from "../components/LatestMovies";
 import Movies from "../components/Movies";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 import Spinner from "../components/Spinner";
 
 const AppLayout = ({
@@ -11,12 +10,15 @@ const AppLayout = ({
   setSelectedMovie,
   userRatings,
   setUserRatings,
+  setFavoriteMovies,
+  favoriteMovies,
+  query,
+  error,
+  setError,
 }) => {
-  const [query, setQuery] = useState("");
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleCardClick = (movie) => {
     setSelectedMovie(movie); // Set the selected movie details
@@ -77,7 +79,6 @@ const AppLayout = ({
 
   return (
     <>
-      <Navbar query={query} setQuery={setQuery} setError={setError} />
       <div className="relative h-full">
         <div
           className="absolute inset-0 bg-[url('img/hero-bg.jpg')] bg-cover bg-center bg-no-repeat"
@@ -104,6 +105,8 @@ const AppLayout = ({
                 onCardClick={handleCardClick}
                 userRatings={userRatings}
                 setUserRatings={setUserRatings}
+                setFavoriteMovies={setFavoriteMovies}
+                favoriteMovies={favoriteMovies}
               />
             </>
           ) : (
@@ -118,6 +121,8 @@ const AppLayout = ({
                 onCardClick={handleCardClick}
                 userRatings={userRatings}
                 setUserRatings={setUserRatings}
+                setFavoriteMovies={setFavoriteMovies}
+                favoriteMovies={favoriteMovies}
               />
             </>
           )}

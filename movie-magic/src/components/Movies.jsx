@@ -11,6 +11,8 @@ const Movies = ({
   onClose,
   userRatings,
   setUserRatings,
+  setFavoriteMovies,
+  favoriteMovies,
 }) => {
   console.log(searchResults);
   return (
@@ -28,6 +30,8 @@ const Movies = ({
             selectedMovie={selectedMovie}
             userRatings={userRatings}
             setUserRatings={setUserRatings}
+            setFavoriteMovies={setFavoriteMovies}
+            favoriteMovies={favoriteMovies}
           />
         ) : null}
       </div>

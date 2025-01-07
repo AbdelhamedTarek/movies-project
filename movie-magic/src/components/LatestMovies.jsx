@@ -8,6 +8,8 @@ const LatestMovies = ({
   selectedMovie,
   userRatings,
   setUserRatings,
+  setFavoriteMovies,
+  favoriteMovies,
 }) => {
   return (
     <SlickSlider
@@ -17,6 +19,8 @@ const LatestMovies = ({
       selectedMovie={selectedMovie}
       userRatings={userRatings}
       setUserRatings={setUserRatings}
+      setFavoriteMovies={setFavoriteMovies}
+      favoriteMovies={favoriteMovies}
     />
   );
 };

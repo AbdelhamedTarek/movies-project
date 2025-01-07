@@ -2,11 +2,24 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 
-const Modal = ({ onClose, selectedMovie, userRatings, setUserRatings }) => {
-  console.log(selectedMovie);
+const Modal = ({
+  onClose,
+  selectedMovie,
+  userRatings,
+  setUserRatings,
+  setFavoriteMovies,
+  favoriteMovies,
+}) => {
+  // console.log(selectedMovie);
   const [hasWatched, setHasWatched] = useState(null); // Track if the user has watched the movie
   const [rating, setRating] = useState(null); // Store the rating from StarRating
   const [credits, setCredits] = useState({ director: "", cast: [] });
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  // Update the state if the movie is already in favorites
+  useEffect(() => {
+    setIsFavorite(!!favoriteMovies[selectedMovie.id]);
+  }, [selectedMovie.id, favoriteMovies]);
 
   useEffect(() => {
     const fetchCredits = async () => {
@@ -32,6 +45,7 @@ const Modal = ({ onClose, selectedMovie, userRatings, setUserRatings }) => {
 
     if (userRatings[selectedMovie.id]) {
       const { watched, rating } = userRatings[selectedMovie.id];
+      console.log("watched", watched, "rating", rating, name);
       setHasWatched(watched);
       setRating(rating);
     }
@@ -51,8 +65,27 @@ const Modal = ({ onClose, selectedMovie, userRatings, setUserRatings }) => {
     setRating(ratingValue);
     setUserRatings((prevRatings) => ({
       ...prevRatings,
-      [selectedMovie.id]: { watched: true, rating: ratingValue },
+      [selectedMovie.id]: {
+        watched: true,
+        rating: ratingValue,
+        name: selectedMovie.original_title, // Add movie name
+        image: `https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`,
+      },
     }));
+  };
+
+  const handleAddToFavorites = () => {
+    setFavoriteMovies((prevFavorites) => ({
+      ...prevFavorites,
+      [selectedMovie.id]: {
+        id: selectedMovie.id,
+        name: selectedMovie.original_title,
+        image: selectedMovie.poster_path
+          ? `https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`
+          : "https://via.placeholder.com/500x750",
+      },
+    }));
+    setIsFavorite(true); // Mark as favorite
   };
 
   return (
@@ -133,12 +166,26 @@ const Modal = ({ onClose, selectedMovie, userRatings, setUserRatings }) => {
               {/* Show StarRating component or message based on rating */}
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
-          >
-            Close
-          </button>
+          <div className="relative bg-white rounded-lg p-6 w-11/12 max-w-[800px] shadow-lg max-h-[90vh] overflow-y-auto">
+            {/* Other modal content */}
+            <button
+              onClick={handleAddToFavorites}
+              disabled={isFavorite} // Disable if already a favorite
+              className={`mt-4 py-2 px-4 w-full rounded ${
+                isFavorite
+                  ? "bg-gray-500 text-white cursor-not-allowed"
+                  : "bg-yellow-500 text-white hover:bg-yellow-600"
+              }`}
+            >
+              {isFavorite ? "Added" : "Add to Favorites"}
+            </button>
+            <button
+              onClick={onClose}
+              className="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </>
