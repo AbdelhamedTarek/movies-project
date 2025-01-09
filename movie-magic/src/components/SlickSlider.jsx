@@ -1,21 +1,13 @@
-/* eslint-disable react/prop-types */
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SlickSlider.css";
 import MovieCard from "./MovieCard";
 import Modal from "./Modal";
+import useMovieStore from "../store";
 
-const SlickSlider = ({
-  topRatedMovies,
-  onClose,
-  selectedMovie,
-  onCardClick,
-  userRatings,
-  setUserRatings,
-  setFavoriteMovies,
-  favoriteMovies,
-}) => {
+const SlickSlider = () => {
+  const { topRatedMovies, selectedMovie } = useMovieStore();
   const settings = {
     dots: false,
     infinite: true,
@@ -59,34 +51,14 @@ const SlickSlider = ({
         <Slider {...settings}>
           {topRatedMovies.map((topRatedMovie, index) => (
             <div className="p-10" key={index}>
-              <MovieCard movie={topRatedMovie} onCardClick={onCardClick} />
+              <MovieCard movie={topRatedMovie} />
             </div>
           ))}
         </Slider>
       </div>
-      <div>
-        {selectedMovie ? (
-          <Modal
-            onClose={onClose}
-            selectedMovie={selectedMovie}
-            userRatings={userRatings}
-            setUserRatings={setUserRatings}
-            setFavoriteMovies={setFavoriteMovies}
-            favoriteMovies={favoriteMovies}
-          />
-        ) : null}
-      </div>
+      <div>{selectedMovie ? <Modal /> : null}</div>
     </>
   );
 };
 
 export default SlickSlider;
-
-{
-  /* <div key={index} className="slick-slide">
-<img
-  src={`https://image.tmdb.org/t/p/w500${topRatedMovie.poster_path}`}
-  alt={`Slide ${index + 1}`}
-/>
-</div> */
-}

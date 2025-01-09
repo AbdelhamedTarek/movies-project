@@ -1,134 +1,50 @@
-/* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
 import LatestMovies from "../components/LatestMovies";
 import Movies from "../components/Movies";
-import axios from "axios";
 import Spinner from "../components/Spinner";
+import useMovieStore from "../store";
 
-const AppLayout = ({
-  selectedMovie,
-  setSelectedMovie,
-  userRatings,
-  setUserRatings,
-  setFavoriteMovies,
-  favoriteMovies,
-  query,
-  error,
-  setError,
-}) => {
-  const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleCardClick = (movie) => {
-    setSelectedMovie(movie); // Set the selected movie details
-  };
-
-  const handleCloseModal = () => {
-    setSelectedMovie(null); // Close the modal
-  };
-
-  useEffect(() => {
-    const getLatestmovies = async () => {
-      setIsLoading(true);
-      setError("");
-      try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/movie/top_rated?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38`
-        );
-        const data = await res.data.results;
-        setTopRatedMovies(data);
-      } catch (err) {
-        setError("Failed to fetch top-rated movies. Please try again later.");
-      } finally {
-        setIsLoading(false);
-        setError("");
-      }
-    };
-
-    getLatestmovies();
-  }, []);
-
-  useEffect(() => {
-    if (!query) {
-      setSearchResults([]);
-      return;
-    }
-    const fetchMovies = async () => {
-      setIsLoading(true);
-      setError("");
-      try {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38&query=${query}`
-        );
-        const data = await res.json();
-        if (data.results && data.results.length > 0) {
-          setSearchResults(data.results);
-        } else {
-          setError("No results found. Please try searching for another movie.");
-        }
-        // setSearchResults(data.results);
-      } catch (err) {
-        setError("Failed to fetch search results. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchMovies();
-  }, [query]);
+const AppLayout = () => {
+  const { error, searchResults, isLoading, query } = useMovieStore();
 
   return (
-    <>
-      <div className="relative h-full">
-        <div
-          className="absolute inset-0 bg-[url('img/hero-bg.jpg')] bg-cover bg-center bg-no-repeat"
-          aria-hidden="true"
-        ></div>
-        <div className="relative bg-black bg-opacity-70 h-full">
-          {isLoading ? (
-            <div className="flex justify-center items-center h-screen">
-              <Spinner />
-            </div>
-          ) : error ? (
-            <div className="flex justify-center items-center h-full">
-              <p className="text-red-500 text-2xl">{error}</p>
-            </div>
-          ) : searchResults.length <= 0 ? (
-            <>
-              <h1 className="text-[#f9f9f9] text-3xl text-center mt-3 mb-3 p-4">
-                Top Rated Movies
-              </h1>
-              <LatestMovies
-                topRatedMovies={topRatedMovies}
-                selectedMovie={selectedMovie}
-                onClose={handleCloseModal}
-                onCardClick={handleCardClick}
-                userRatings={userRatings}
-                setUserRatings={setUserRatings}
-                setFavoriteMovies={setFavoriteMovies}
-                favoriteMovies={favoriteMovies}
-              />
-            </>
-          ) : (
-            <>
-              <h1 className="text-[#f9f9f9] text-3xl text-center mt-3 mb-3 p-4">
-                Search Results
-              </h1>
-              <Movies
-                searchResults={searchResults}
-                selectedMovie={selectedMovie}
-                onClose={handleCloseModal}
-                onCardClick={handleCardClick}
-                userRatings={userRatings}
-                setUserRatings={setUserRatings}
-                setFavoriteMovies={setFavoriteMovies}
-                favoriteMovies={favoriteMovies}
-              />
-            </>
-          )}
-        </div>
+    <div className="relative h-full font-inter text-gray-100">
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-blue-900 via-gray-900 to-black bg-cover bg-center bg-no-repeat"
+        aria-hidden="true"
+      ></div>
+
+      {/* Content Wrapper */}
+      <div className="relative bg-black bg-opacity-80 h-full">
+        {/* Loading Spinner */}
+        {isLoading ? (
+          <div className="flex justify-center items-center h-screen">
+            <Spinner />
+          </div>
+        ) : error ? (
+          /* Error Message */
+          <div className="absolute left-0 w-full bg-red-600 text-white p-4 rounded-md text-center shadow-md">
+            <span className="font-semibold">{error}</span>
+          </div>
+        ) : query && searchResults.length > 0 ? (
+          <>
+            {/* Search Results Heading */}
+            <h1 className="text-4xl font-bold text-center p-4 text-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Search Results
+            </h1>
+            <Movies />
+          </>
+        ) : (
+          <>
+            {/* Top Rated Movies Heading */}
+            <h1 className="text-4xl font-bold text-center p-4 text-gradient bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+              Top Rated Movies
+            </h1>
+            <LatestMovies />
+          </>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

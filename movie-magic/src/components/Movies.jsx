@@ -1,40 +1,18 @@
-/* eslint-disable react/prop-types */
-
-// import { useState } from "react";
 import MovieCard from "./MovieCard";
 import Modal from "./Modal";
+import useMovieStore from "../store";
 
-const Movies = ({
-  searchResults,
-  selectedMovie,
-  onCardClick,
-  onClose,
-  userRatings,
-  setUserRatings,
-  setFavoriteMovies,
-  favoriteMovies,
-}) => {
-  console.log(searchResults);
+const Movies = () => {
+  const { searchResults, selectedMovie } = useMovieStore();
   return (
     <>
       <div className="flex flex-wrap justify-center gap-6 p-4">
         {searchResults &&
           searchResults.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} onCardClick={onCardClick} />
+            <MovieCard key={movie.id} movie={movie} />
           ))}
       </div>
-      <div>
-        {selectedMovie ? (
-          <Modal
-            onClose={onClose}
-            selectedMovie={selectedMovie}
-            userRatings={userRatings}
-            setUserRatings={setUserRatings}
-            setFavoriteMovies={setFavoriteMovies}
-            favoriteMovies={favoriteMovies}
-          />
-        ) : null}
-      </div>
+      <div>{selectedMovie ? <Modal /> : null}</div>
     </>
   );
 };

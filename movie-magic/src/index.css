@@ -1,6 +1,11 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  margin: 0;
+}
 
 :root {
   --primary-color: #3689e3;
@@ -8,11 +13,6 @@
   --tertiary-color: #f4f4f4;
   --dark-color: #333;
   --light-color: #fff;
-}
-
-input::placeholder {
-  color: white; /* Change to your desired color */
-  font-style: italic; /* Optional styling */
 }
 
 .logo {
