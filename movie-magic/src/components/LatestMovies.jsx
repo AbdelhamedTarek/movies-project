@@ -14,7 +14,9 @@ const LatestMovies = () => {
 
       try {
         const res = await axios.get(
-          `https://api.themoviedb.org/3/movie/top_rated?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38`
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=${
+            import.meta.env.VITE_API_KEY
+          }`
         );
 
         // Avoid redundant updates

@@ -28,7 +28,9 @@ const Modal = () => {
     const fetchCredits = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${selectedMovie.id}/credits?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38`
+          `https://api.themoviedb.org/3/movie/${
+            selectedMovie.id
+          }/credits?api_key=${import.meta.env.VITE_API_KEY}`
         );
         const data = await response.json();
         const director = data.crew.find(

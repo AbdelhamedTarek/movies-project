@@ -31,9 +31,9 @@ const SearchBar = () => {
     setError("");
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=13e6d1fcf4b3b0b9f023ac7a2d283e38&query=${encodeURIComponent(
-          query
-        )}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${
+          import.meta.env.VITE_API_KEY
+        }&query=${encodeURIComponent(query)}`
       );
       if (res.data.results.length === 0) {
         setError(`No results found for "${query}". Please try another search.`);
