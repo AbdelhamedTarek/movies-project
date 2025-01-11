@@ -8,6 +8,7 @@ import useMovieStore from "../store";
 
 const SlickSlider = () => {
   const { topRatedMovies, selectedMovie } = useMovieStore();
+
   const settings = {
     dots: false,
     infinite: true,
@@ -47,10 +48,10 @@ const SlickSlider = () => {
 
   return (
     <>
-      <div className="slider-container px-6 py-10 bg-transparent">
+      <div className="slider-container px-6 py-10">
         <Slider {...settings}>
           {topRatedMovies.map((topRatedMovie, index) => (
-            <div className="p-4 md:p-10" key={index}>
+            <div className="slide-item" key={index}>
               <MovieCard movie={topRatedMovie} />
             </div>
           ))}

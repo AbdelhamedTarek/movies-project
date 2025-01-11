@@ -1,4 +1,23 @@
 .slider-container {
+  width: 100%;
+  max-width: 1200px; /* Ensure the container width matches your design */
+  margin: 0 auto;
+}
+
+.slick-slide > div {
+  margin: 0; /* Remove extra margin */
+  padding: 0 10px; /* Add consistent padding if needed */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.slide-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Ensure slides adjust height dynamically */
+}
+
+/* .slider-container {
   width: 80%;
   padding: 20px;
   margin: auto;
@@ -7,4 +26,4 @@
 .slick-slide {
   display: flex;
   justify-content: center;
-}
+} */
