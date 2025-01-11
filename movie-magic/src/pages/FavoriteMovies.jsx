@@ -4,6 +4,7 @@ import Movies from "../components/Movies";
 
 const FavoriteMovies = () => {
   const { favoriteMovies, setFavoriteMovies, searchResults } = useMovieStore();
+
   const handleRemoveFromFavorites = (movieId) => {
     setFavoriteMovies((prevFavorites) => {
       const updatedFavorites = { ...prevFavorites };
@@ -34,7 +35,7 @@ const FavoriteMovies = () => {
       </h2>
 
       {Object.keys(favoriteMovies).length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 p-4">
           {Object.entries(favoriteMovies).map(([movieId, movie]) => (
             <div
               key={movieId}
@@ -50,7 +51,7 @@ const FavoriteMovies = () => {
               </div>
 
               <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
                   {movie.name}
                 </h3>
                 <button

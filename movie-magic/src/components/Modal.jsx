@@ -109,7 +109,7 @@ const Modal = () => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-black bg-opacity-80 rounded-lg p-6 w-11/12 max-w-3xl mx-auto shadow-lg overflow-hidden"
+        className="relative bg-black bg-opacity-80 rounded-lg p-6 w-full max-w-sm sm:max-w-md lg:max-w-3xl mx-auto shadow-lg overflow-y-auto max-h-screen"
       >
         <h2 className="text-3xl font-bold text-center mb-4 text-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           {selectedMovie.original_title}

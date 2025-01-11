@@ -12,8 +12,7 @@ const MovieCard = ({ movie }) => {
   return (
     <div
       onClick={handleViewMovie}
-      className="flex flex-col items-center bg-white border border-gray-300 rounded-lg shadow-lg p-4 hover:scale-105 transition-transform duration-300 ease-in-out"
-      style={{ width: "300px", height: "450px" }} // Explicit size for each card
+      className="flex flex-col items-center bg-white border border-gray-300 rounded-lg shadow-lg p-4 hover:scale-105 transition-transform duration-300 ease-in-out w-full md:w-72 lg:w-80" // Adjust width based on screen size
     >
       <img
         className="w-full h-3/4 object-cover rounded-t-lg mb-2"

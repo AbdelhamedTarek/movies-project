@@ -9,14 +9,18 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<AppLayout />} />
-        <Route path="/top-rated" element={<RatedMovies />} />
-        <Route path="/favorite" element={<FavoriteMovies />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
+      <div className="flex flex-col min-h-screen">
+        <div className="flex-grow">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<AppLayout />} />
+            <Route path="/top-rated" element={<RatedMovies />} />
+            <Route path="/favorite" element={<FavoriteMovies />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </>
   );
 }

@@ -47,10 +47,10 @@ const SlickSlider = () => {
 
   return (
     <>
-      <div className="slider-container px-6 py-10 bg-transparent]">
+      <div className="slider-container px-6 py-10 bg-transparent">
         <Slider {...settings}>
           {topRatedMovies.map((topRatedMovie, index) => (
-            <div className="p-10" key={index}>
+            <div className="p-4 md:p-10" key={index}>
               <MovieCard movie={topRatedMovie} />
             </div>
           ))}

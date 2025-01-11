@@ -64,11 +64,11 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center space-x-4 mb-4 md:mb-0">
+      <div className="flex items-center justify-center space-x-4 mb-4 md:mb-0 flex-col md:flex-row">
         <input
           type="text"
           id="search"
-          className="w-80 p-4 bg-blue-600 text-white placeholder-white rounded-full focus:outline-none"
+          className="w-80 p-4 bg-blue-600 text-white placeholder-white rounded-full focus:outline-none mb-4 md:mb-0 md:w-auto"
           placeholder="Search Movie by Name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

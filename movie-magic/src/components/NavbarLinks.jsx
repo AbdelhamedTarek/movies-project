@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faHome, faFaceDizzy } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const NavbarLinks = () => {
   const location = useLocation();
@@ -32,7 +32,7 @@ const NavbarLinks = () => {
               : "text-gray-300 hover:text-blue-400"
           }`}
         >
-          <FontAwesomeIcon icon={faFaceDizzy} className="mr-2 text-xl" />
+          <FontAwesomeIcon icon={faStar} className="mr-2 text-xl" />
           Rated Movies
         </Link>
       </li>
@@ -47,7 +47,7 @@ const NavbarLinks = () => {
               : "text-gray-300 hover:text-blue-400"
           }`}
         >
-          <FontAwesomeIcon icon={faEye} className="mr-2 text-xl" />
+          <FontAwesomeIcon icon={faHeart} className="mr-2 text-xl" />
           Favorite Movies
         </Link>
       </li>
