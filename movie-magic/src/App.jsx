@@ -4,6 +4,7 @@ import RatedMovies from "./pages/RatedMovies";
 import NotFound from "./pages/NotFound";
 import FavoriteMovies from "./pages/FavoriteMovies";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/favorite" element={<FavoriteMovies />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }

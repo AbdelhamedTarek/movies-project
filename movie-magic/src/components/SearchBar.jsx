@@ -13,7 +13,6 @@ const SearchBar = () => {
     setSearchResults([]);
   }, [location.pathname, setSearchResults, setQuery]);
 
-  // Clear search results if the query is empty
   useEffect(() => {
     if (!query.trim()) {
       setSearchResults([]); // Clear results if query is empty
@@ -50,8 +49,6 @@ const SearchBar = () => {
       setIsLoading(false);
     }
   };
-
-  // Reset the query after search is complete
 
   const handleSearch = (e) => {
     e.preventDefault();
