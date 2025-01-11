@@ -2,8 +2,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white text-center py-4">
       <p className="text-sm">
-        &copy; {new Date().getFullYear()} Your Company Name. All rights
-        reserved.
+        &copy; {new Date().getFullYear()} Abdelhamed Tarek. All rights reserved.
       </p>
     </footer>
   );
